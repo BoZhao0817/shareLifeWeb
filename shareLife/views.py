@@ -6,10 +6,11 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView,DeleteView
 from django.views import generic
 from message.models import Message
-from .forms import SubmitPostForm
+from .forms import SubmitPostForm, SearchPostForm
 from message.form import MessageForm
-from .models import Post, User, PostDetail
+from .models import Post, User, PostDetail,Location
 from django.views import View
+
 
 def index(request):
     if request.user.is_authenticated:
@@ -20,8 +21,8 @@ def index(request):
         post_list = Post.objects.all().order_by('-created_time')
 
 
-    return render(request, 'index.html', context={'post_list':post_list, 'user_list':user_posts})
-
+    searchForm = SearchPostForm
+    return render(request, 'index.html', context={'post_list':post_list, 'user_list':user_posts, 'search_form':searchForm})
 
 def form(request):
     if request.method == 'POST':  # 当提交表单时
@@ -46,6 +47,7 @@ def form(request):
         form = SubmitPostForm()
     return render(request, 'form.html', {'form': form})
 
+
 class updatePost(UpdateView):
     model = Post
     fields = ["name", "body","location", "address", 'startDate', 'endDate']
@@ -60,6 +62,7 @@ class deletePost(DeleteView):
 
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    # detail = get_object_or_404(PostDetail, pk = pk)
     print(request)
     # post.body = markdown.markdown(post.body,
     #                               extensions=[
@@ -76,5 +79,41 @@ def detail(request, pk):
     context = {'post':post,'message_form': form,'message_list': message_list}
     return render(request, 'detail.html', context=context)
 
+def search(request):
+    #time location bedrooms, tag
+    if request.method == 'GET':
+        bedrooms = request.GET.get('bedroom')
+        location =  request.GET.get('location') # return id
+        startDate = request.GET.get('startDate')
+        endDate = request.GET.get('endDate')
+
+        error_msg = ''
+        post_list1 = Post.objects.filter(bedrooms = bedrooms)
+        post_list2 = Post.objects.filter(location= location)
+        post_list3 = Post.objects.filter(startDate__lte= startDate)
+        post_list4 = Post.objects.filter(endDate__gte= endDate)
+
+        post_list12 = post_list1 & post_list2
+        post_list13 = post_list1 & post_list3
+        post_list14 = post_list1 & post_list4
+        post_list23= post_list2 & post_list3
+        post_list24 =post_list2 & post_list4
+        post_list34 = post_list3 & post_list4
+
+        post_listSum2  = (post_list12|post_list23|post_list14|
+                          post_list23|post_list24|post_list34).distinct()
+
+        post_list123 = post_list12 & post_list3
+        post_list234 = post_list23 & post_list4
+        post_list124 = post_list12 & post_list4
+        post_list134 = post_list13 & post_list4
+
+        post_listSum3  = (post_list123|post_list234|post_list134|
+                          post_list124).distinct()
+
+        post_listSum4 = post_list12 & post_list34
+
+        return render(request, 'result.html', {'error_msg': error_msg, 'post_list2':post_listSum2,
+                                               'post_list3':post_listSum3,'post_list4':post_listSum4})
 
 

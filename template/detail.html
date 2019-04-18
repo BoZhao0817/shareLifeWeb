@@ -3,6 +3,72 @@
 {% block content %}
 {% load staticfiles %}
 
+<body class="">
+    <div id="property-single">
+        <div id="main-slider">
+            <div class="slide"><img src="{% static 'assets/images/slider/1.jpg' %}" alt="Slide"></div>
+            <div class="slide"><img src="{% static 'assets/images/slider/2.jpg' %}" alt="Slide"></div>
+            <div class="slide"><img src="{% static 'assets/images/slider/3.jpg' %}" alt="Slide"></div>
+            <div class="slide"><img src="{% static 'assets/images/slider/4.jpg' %}" alt="Slide"></div>
+        </div>
+
+         <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-7">
+                    <section class="property-meta-wrapper common">
+                        <h3 class="entry-title">{{ post.name }}</h3>
+                        <div class="property-single-meta">
+                            <ul class="clearfix">
+                                <li><span>Property ID :</span> {{ post.property_id }}</li>
+                                <li><span>City :</span> {{ post.location }}</li>
+                                <li><span>Bedrooms :</span> {{ post.bedrooms }}</li>
+                                <li><span>Bathrooms :</span> {{ post.bathrooms }}</li>
+                                <li><span>Address :</span> {{ post.address }}</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="property-contents common">
+                        <div class="entry-title clearfix">
+                            <h4 class="pull-left">Description </h4><a class="pull-right print-btn" href="javascript:window.print()">Print This Property <i class="fa fa-print"></i></a>
+                        </div>
+                        <p><li>{{ post.body }}</li></p>
+                    </section>
+
+                    <section class="property-single-features common clearfix">
+                        <h4 class="entry-title">Property Features</h4>
+                        <ul class="property-single-features-list clearfix">
+                            <li>Air Conditioning</li>
+                            <li>Cable TV</li>
+                            <li>Cot</li>
+                            <li class="disabled">Fan</li>
+                            <li>Lift</li>
+                            <li>Parking</li>
+                            <li>Separate Shower</li>
+                            <li>Office/den</li>
+                            <li class="disabled">Air Conditioning</li>
+                            <li>Cable TV</li>
+                            <li>Cot</li>
+                            <li>Fan</li>
+                            <li>Lift</li>
+                            <li class="disabled">Parking</li>
+                            <li>Cot</li>
+                            <li>Fan</li>
+                            <li>Lift</li>
+                            <li>Parking</li>
+                            <li>Separate Shower</li>
+                            <li class="disabled">Office/den</li>
+                            <li>Air Conditioning</li>
+                            <li>Cable TV</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% if user.pk == post.author.pk%}
 <div class="list-group col-md-10 col-md-offset-1 well">
     <div class="list-group-item">
         {% for chat in message_list %}
@@ -13,19 +79,24 @@
         {% endfor %}
     </div>
 </div>
+    {% else %}
+{% endif %}
+
+    {% if user.is_authenticated %}
 
 <form action="{% url 'message:post_message' post.pk %}" method="post" class="comment-form">
   {% csrf_token %}
-  <div class="row">
-    <div class="col-md-12">
-      <label >评论：</label>
+  <div class="list-group col-md-10 col-md-offset-1 well">
+    <div class=" ">
+      <label >Message：</label>
         {{ message_form.content }}
         {{ message_form.content.errors }}
-      <button type="submit" class="comment-btn">发表</button>
+      <button type="submit" class="comment-btn">submit</button>
     </div>
   </div>    <!-- row -->
 </form>
-
+{% else %}
+{% endif %}
 <h3>  </h3>
 
 

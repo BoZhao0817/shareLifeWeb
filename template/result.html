@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+
+
+
+{% block content %}
+
+<section id="home-property-for-rent-listing">
+    <header class="section-header home-section-header text-center">
+        <div class="container">
+            <h2 class="wow slideInLeft">Places To Explore</h2>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div id="property-for-rent-slider">
+                {% for post in post_list2 %}
+                <div class="col-lg-4 col-md-6 - {{ post.pk }}">
+                    <article class="property clearfix">
+                        <figure class="feature-image">
+                            <a class="clearfix" href="single-property.html"> <img src="{% static 'assets/images/property/3.jpg' %}"
+                                                                                  alt="Property Image"></a>
+                        </figure>
+                        <div class="property-contents">
+                            <header class="property-header clearfix">
+                                <div class="pull-left">
+                                    <h6 class="entry-title"><a href="single-property.html">{{ post.name }}</a>
+                                    </h6>
+                                    <span class="property-location"><i class="fa fa-map-marker"></i> {{post.location}}</span>
+                                </div>
+                                <button class="btn btn-default btn-price pull-right btn-3d" >
+                                    <strong>{{post.author}}</strong></button>
+                            </header>
+                            <div class="property-meta clearfix">
+                                <span><i class="fa fa-arrows-alt"></i> 3060 SqFt</span>
+                                <span><i class="fa fa-bed"></i> 3 Beds</span>
+                                <span><i class="fa fa-bathtub"></i> 3 Baths</span>
+                                <span><i class="fa fa-cab"></i> Yes</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                {% empty %}
+                <h3>no post yet！</h3>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+  <head>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+    <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 2,
+          center: new google.maps.LatLng(2.8,-187.3),
+          mapTypeId: 'terrain'
+        });
+
+        // Create a <script> tag and set the USGS URL as the source.
+        var script = document.createElement('script');
+        // This example uses a local copy of the GeoJSON stored at
+        // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
+        script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
+        document.getElementsByTagName('head')[0].appendChild(script);
+      }
+
+      // Loop through the results array and place a marker for each
+      // set of coordinates.
+      window.eqfeed_callback = function(results) {
+        for (var i = 0; i < results.features.length; i++) {
+          var coords = results.features[i].geometry.coordinates;
+          var latLng = new google.maps.LatLng(coords[1],coords[0]);
+          var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+          });
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
+    </script>
+
+{% endblock %}

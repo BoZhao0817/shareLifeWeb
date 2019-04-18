@@ -4,6 +4,22 @@
 {% load staticfiles %}
 <h3></h3>
 
+<form action="{% url 'shareLife:search' %}" method="get">
+    {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <table>
+                        {{ search_form.as_table }}
+                    </table>
+                    <input type="submit" value="Search"/>
+                </div>
+            </div>
+        </div>
+
+
+</form>
+
 {% if user.is_authenticated %}
     <section id="user-posts">
         <header class="section-header home-section-header text-center">

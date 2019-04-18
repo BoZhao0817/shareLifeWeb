@@ -18,11 +18,14 @@ class SubmitPostForm(forms.ModelForm):
 class PostDetailForm(forms.ModelForm):
     #inner class meta
     class Meta:
-        model = PostDetail
+        model = Post
         fields = '__all__'
 
-
-# class MessageForm(forms.Form):
+class SearchPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['bedrooms','location','startDate', 'endDate']
+        # class MessageForm(forms.Form):
 #     content = forms.CharField(help_text="Name your place", required= True)
     # body = forms.CharField(help_text="Some introductions", required=False)
     # location = forms.CharField(help_text= "your place", required= True)
