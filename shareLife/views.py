@@ -1,13 +1,16 @@
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render,get_object_or_404, redirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.views.generic.edit import CreateView, UpdateView,DeleteView
+from django.views import generic
+from message.models import Message
 from .models import Post,User
 from .forms import SubmitPostForm
+from message.form import MessageForm
+
 
 def index(request):
-
 
     if request.user.is_authenticated:
         post_list = Post.objects.all().exclude(author=request.user).order_by('-created_time')
@@ -53,4 +56,26 @@ class updatePost(UpdateView):
 class deletePost(DeleteView):
     model = Post
     success_url = reverse_lazy('index')
+
+def chatindex(request):
+    chats = list(Message.objects.all())[-100:]
+    return render(request, 'chatroom.html', {'chats': chats})
+
+def detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    print(request)
+    # post.body = markdown.markdown(post.body,
+    #                               extensions=[
+    #                                   'markdown.extensions.extra',
+    #                                   'markdown.extensions.codehilite',
+    #                                   'markdown.extensions.toc',
+    #                               ])
+    # 记得在顶部导入 CommentForm
+    form = MessageForm()
+    # 获取这篇 post 下的全部评论
+    message_list = Message.objects.all().filter(postId =pk)
+
+    # 将文章、表单、以及文章下的评论列表作为模板变量传给 detail.html 模板，以便渲染相应数据。
+    context = {'post':post,'message_form': form,'message_list': message_list}
+    return render(request, 'detail.html', context=context)
 

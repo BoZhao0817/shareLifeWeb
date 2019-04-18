@@ -1,9 +1,12 @@
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import  reverse
 import datetime
 
 DEFAULT_LOCATION_ID = 1
+DEFAULT_POST_ID =1
+DEFAULT_USER_ID =1
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -39,13 +42,15 @@ class Post(models.Model):
     startDate = models.DateField(default=datetime.date.today)
     endDate = models.DateField(default=datetime.date.today)
 
+    def __str__(self):
+        return self.name
 
-class Message(models.Model):
-    text = models.CharField(max_length=140)
+    def get_absolute_url(self):git
+        return reverse('shareLife:post_detail', kwargs={'pk': self.pk})
 
-    sender = models.ForeignKey(User, on_delete = models.CASCADE)
-    receiver  = models.ForeignKey(User, on_delete = models.CASCADE)
-    time = models.DateTimeField()
+
+
+
 
 
 
