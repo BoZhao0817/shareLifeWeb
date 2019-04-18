@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 import datetime
 
+
 DEFAULT_LOCATION_ID = 1
 
 class Category(models.Model):
@@ -23,12 +24,13 @@ class Location(models.Model):
 
 
 class Post(models.Model):
+
     name = models.CharField(max_length=70)
 
     body = models.TextField()
 
-    created_time = models.DateTimeField()
-    modified_time = models.DateTimeField()
+    created_time = models.DateField(default=datetime.date.today)
+    modified_time = models.DateField(default=datetime.date.today)
 
     excerpt = models.CharField(max_length=200, blank=True)
 
@@ -40,7 +42,16 @@ class Post(models.Model):
     address = models.CharField(max_length=200, blank=True)
     startDate = models.DateField(default=datetime.date.today)
     endDate = models.DateField(default=datetime.date.today)
+    latitude = models.CharField(max_length=70, blank=True)
+    longitude = models.CharField(max_length=70, blank=True)
 
+    #property_size = models.CharField(max_length=70)
+    bedrooms = models.Field(max_length=200, blank=True)
+    bathrooms = models.CharField(max_length=200, blank=True)
+    #garage_size = models.CharField(max_length=200, blank=True)
+    #year_built = models.CharField(max_length=70, blank=True)
+    #address = models.CharField(max_length=200, blank=True)
+    #price = models.CharField(max_length=70, blank=True)
 
     def get_absolute_url(self):
         return reverse('single',
@@ -52,20 +63,11 @@ class Post(models.Model):
 
 
 
-
-class PostDetail(models.Model):
-
-    property_id = models.AutoField(primary_key=True)
-    property_size = models.CharField(max_length=70)
-    bedrooms = models.CharField(max_length=200, blank=True)
-    bathrooms = models.CharField(max_length=200, blank=True)
-    garage_size = models.CharField(max_length=200, blank=True)
-    year_built = models.CharField(max_length=70, blank=True)
-    address = models.CharField(max_length=200, blank=True)
-    price = models.CharField(max_length=70, blank=True)
-    description = models.CharField(max_length=200, blank=True)
-    name = models.ForeignKey(Post,on_delete=models.CASCADE,default=DEFAULT_LOCATION_ID)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, default=DEFAULT_LOCATION_ID)
+#
+# class PostDetail(models.Model):
+#     description = models.CharField(max_length=200, blank=True)
+#     name = models.ForeignKey(Post,on_delete=models.CASCADE,default=DEFAULT_LOCATION_ID)
+#     location = models.ForeignKey(Location, on_delete=models.CASCADE, default=DEFAULT_LOCATION_ID)
 
 
 

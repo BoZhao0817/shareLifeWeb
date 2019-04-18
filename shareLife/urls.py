@@ -1,8 +1,6 @@
 
 from django.conf.urls import url,include
 from django.urls import path
-
-from shareLife.views import PostDetailList
 from . import views
 
 urlpatterns = [
@@ -15,5 +13,6 @@ urlpatterns = [
     path('post/<int:pk>/delete/', views.deletePost.as_view(), name='post_delete'),
     # path('single', views.single, name = "single"),
     #detail page
-    path('post/<int:pk>/',views.PostDetailList,name='single'),
+
+    # path('post/<int:pk>/',views.PostDetailList,name='single'),
 ]

@@ -2,11 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect,Http404
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
-from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView,DeleteView
-from .models import Post, User, PostDetail
+from .models import Post, User
 from .forms import SubmitPostForm
-from django.views import View
+
 
 def index(request):
     if request.user.is_authenticated:
@@ -77,19 +76,19 @@ def single(request):
 #         )
 
 
-def PostDetailList(request, pk):
-    try:
-        post = PostDetail.objects.get(pk=pk)
-    except PostDetail.DoesNotExist:
-        raise Http404("Book does not exist")
-
-    # book_id=get_object_or_404(Book, pk=pk)
-
-    return render(
-        request,
-        'single-property.html',
-        context={'post_detail': post }
-    )
+# def PostDetailList(request, pk):
+#     try:
+#         post = PostDetail.objects.get(pk=pk)
+#     except PostDetail.DoesNotExist:
+#         raise Http404("Book does not exist")
+#
+#     # book_id=get_object_or_404(Book, pk=pk)
+#
+#     return render(
+#         request,
+#         'single-property.html',
+#         context={'post_detail': post }
+#     )
 
 
 
