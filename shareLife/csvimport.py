@@ -8,27 +8,28 @@ import random
 
 
 
-path = "./listings.csv"
+city_dict = {"2":"boston", "3":"nyc", "4":"la", "5":"sf", "6":"seattle","7":'austin'}
+for key, value in city_dict.items():
+    path = "../data/"+ value +".csv"
+    with open(path, newline='') as csvfile:
+        data = csv.reader(csvfile, delimiter=',')
+        i = 0
+        for row in data:
+            if i > 100:
+                break
+            #user
+            #print(row)
+            name_ = row[21]
+            print (name_)
+            tail = str(random.randint(1, 100000))
+            user = User.objects.create_user(username = name_+tail, password='123456')
+            user.save()
 
+            loc = Location.objects.get(pk = key)
+            userid = User.objects.get(username = name_ + tail)
 
+            print(userid)
+            P = Post(name = row[4],body= row[5],location = loc,author = userid, latitude=row[48] , longitude= row[49], pic_url=row[17], bedrooms = row[55], bathrooms = row[54])
+            P.save()
+            i += 1
 
-with open(path, newline='') as csvfile:
-    data = csv.reader(csvfile, delimiter=',')
-
-    i = 0
-    for row in data:
-        if i >= 10:
-            break
-        #user
-
-        #print(row)
-        name_ = row[21]
-        #print (name_)
-        tail = str(random.randint(1, 1000))
-        user = User.objects.create_user(username = name_+tail, password='123456')
-        loc = Location.objects.all().filter(row[43])
-        print(loc)
-        userid = User.objects.all().filter(username__istartswith= name_)
-        P = Post(name = row[4],body= row[5],lodcation = loc,author = userid, latitude=row[50] , longitude= row[51])
-        # P.save()
-        i += 1

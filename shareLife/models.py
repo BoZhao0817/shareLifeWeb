@@ -44,7 +44,7 @@ class Post(models.Model):
     endDate = models.DateField(default=datetime.date.today)
     latitude = models.CharField(max_length=70, blank=True)
     longitude = models.CharField(max_length=70, blank=True)
-
+    pic_url= models.URLField(max_length=200, blank=True)
     bedrooms = models.Field(max_length=200, blank=True)
     bathrooms = models.CharField(max_length=200, blank=True)
 
