@@ -16,13 +16,13 @@
                 <div class="col-lg-4 col-md-6 - layout-item-wrap">
                     <article class="property clearfix">
                         <figure class="feature-image">
-                            <a class="clearfix" href="single-property.html"> <img src="{% static 'assets/images/property/2.jpg' %}"
+                            <a class="clearfix" href="post/{{ post.pk }}"> <img src="{% static 'assets/images/property/2.jpg' %}"
                                                                                   alt="Property Image"></a>
                         </figure>
                         <div class="property-contents">
                             <header class="property-header clearfix">
                                 <div class="pull-left">
-                                    <h6 class="entry-title"><a href="single-property.html">{{ post.name }}</a>
+                                    <h6 class="entry-title"><a href="post/{{ post.pk }}">{{ post.name }}</a>
                                     </h6>
                                     <span class="property-location"><i class="fa fa-map-marker"></i> {{post.location}}</span>
                                 </div>

@@ -1,6 +1,8 @@
 from django import forms
 # from django.forms import ModelForm
-from .models import Post
+from .models import Post, PostDetail
+
+
 class SubmitPostForm0(forms.Form):
     name = forms.CharField(help_text="Name your place", required= True)
     body = forms.CharField(help_text="Some introductions", required=False)
@@ -12,6 +14,12 @@ class SubmitPostForm(forms.ModelForm):
         model = Post
         fields = ['name','location', 'body','address','startDate','endDate']
         labels = {'name': 'Name Your House', 'body':'some introduction'}
+
+class PostDetailForm(forms.ModelForm):
+    #inner class meta
+    class Meta:
+        model = PostDetail
+        fields = '__all__'
 
 
 
