@@ -2,16 +2,16 @@ from django.shortcuts import render,get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView,DeleteView
 from django.views import generic
 from message.models import Message
-from .models import Post,User
 from .forms import SubmitPostForm
 from message.form import MessageForm
-
+from .models import Post, User, PostDetail
+from django.views import View
 
 def index(request):
-
     if request.user.is_authenticated:
         post_list = Post.objects.all().exclude(author=request.user).order_by('-created_time')
         user_posts = Post.objects.filter(author=request.user).order_by('-created_time')
@@ -57,9 +57,6 @@ class deletePost(DeleteView):
     model = Post
     success_url = reverse_lazy('index')
 
-def chatindex(request):
-    chats = list(Message.objects.all())[-100:]
-    return render(request, 'chatroom.html', {'chats': chats})
 
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -78,4 +75,6 @@ def detail(request, pk):
     # 将文章、表单、以及文章下的评论列表作为模板变量传给 detail.html 模板，以便渲染相应数据。
     context = {'post':post,'message_form': form,'message_list': message_list}
     return render(request, 'detail.html', context=context)
+
+
 

@@ -1,106 +1,12 @@
-﻿<!DOCTYPE html>
+﻿{% extends "base.html" %}
+
+{% block content %}
+{% load staticfiles %}
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>City Night</title>
 
-    <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Poppins:400,600" rel="stylesheet">
-
-
-    <!-- favicon and touch icons -->
-    <link rel="shortcut icon" href="assets/images/favicon.png" >
-
-    <!-- Bootstrap -->
-    <link href="plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="plugins/slick/slick.css" rel="stylesheet">
-    <link href="plugins/slick-nav/slicknav.css" rel="stylesheet">
-    <link href="plugins/wow/animate.css" rel="stylesheet">
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <link href="assets/css/theme.css" rel="stylesheet">
-
-</head>
 <body class="">
-<div id="page-loader">
-    <div class="loaders">
-        <img src="assets/images/loader/3.gif" alt="First Loader">
-        <img src="assets/images/loader/4.gif" alt="First Loader">
-    </div>
-</div>
-<header id="site-header">
-    <div id="site-header-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="clearfix">
-                        <button class="btn btn-warning btn-lg header-btn visible-sm pull-right">List your Property for Free</button>
-                        <p class="timing-in-header">Open Hours: Monday to Saturday - 8am to 6pm</p>
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <div class="clearfix">
-                        <button class="btn btn-warning btn-lg header-btn hidden-sm">List your Property for Free</button>
-                        <div class="language-in-header">
-                            <i class="fa fa-globe"></i>
-                            <label for="language-dropdown"> Language:</label>
-                            <select name="currency" id="language-dropdown">
-                                <option value="ENG">ENG</option>
-                                <option value="AR">AR</option>
-                                <option value="UR">UR</option>
-                                <option value="NEO">NEO</option>
-                                <option value="AKA">AKA</option>
-                            </select>
-                        </div>
-                        <div class="currency-in-header">
-                            <i class="fa fa-flag"></i>
-                            <label for="currency-dropdown"> Currency: </label>
-                            <select name="currency" id="currency-dropdown">
-                                <option value="USD">USD</option>
-                                <option value="EUR">EUR</option>
-                                <option value="AOA">AOA</option>
-                                <option value="XCD">XCD</option>
-                                <option value="PKR">PKR</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <figure id="site-logo">
-                    <a href="index.html"><img src="assets/images/logo.png" alt="Logo"></a>
-                </figure>
-            </div>
-            <div class="col-md-6 col-sm-8">
-                <nav id="site-nav" class="nav navbar-default">
-                    <ul class="nav navbar-nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="property-listing.html">Listing</a></li>
-                        <li><a href="single-property.html">Property</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        <li><a href="contact.html">contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-md-3 col-sm-4">
-                <div class="contact-in-header clearfix">
-                    <i class="fa fa-mobile"></i>
-                    <span>
-                        Call Us Now
-                        <br>
-                    <strong>111 222 333 444</strong>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>    <div id="property-single">
+    <div id="property-single">
         <div id="main-slider">
             <div class="slide"><img src="assets/images/slider/1.jpg" alt="Slide"></div>
             <div class="slide"><img src="assets/images/slider/2.jpg" alt="Slide"></div>
@@ -811,22 +717,22 @@
     </div>
 </footer>
 <a href="#top" id="scroll-top"><i class="fa fa-angle-up"></i></a>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/jquery.migrate.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="plugins/slick-nav/jquery.slicknav.min.js"></script>
-<script src="plugins/slick/slick.min.js"></script>
-<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-<script src="plugins/tweetie/tweetie.js"></script>
-<script src="plugins/forms/jquery.form.min.js"></script>
-<script src="plugins/forms/jquery.validate.min.js"></script>
-<script src="plugins/modernizr/modernizr.custom.js"></script>
-<script src="plugins/wow/wow.min.js"></script>
-<script src="plugins/zoom/zoom.js"></script>
-<script src="plugins/mixitup/mixitup.min.js"></script>
-<!---<script src="http://ditu.google.cn/maps/api/js?key=AIzaSyD2MtZynhsvwI2B40juK6SifR_OSyj4aBA&libraries=places"></script>--->
-<script src="plugins/whats-nearby/source/WhatsNearby.js"></script>
-<script src="assets/js/theme.js"></script>
+<!--&lt;!&ndash; jQuery (necessary for Bootstrap's JavaScript plugins) &ndash;&gt;-->
+<!--<script src="assets/js/jquery.min.js"></script>-->
+<!--<script src="assets/js/jquery.migrate.js"></script>-->
+<!--<script src="assets/js/bootstrap.min.js"></script>-->
+<!--<script src="plugins/slick-nav/jquery.slicknav.min.js"></script>-->
+<!--<script src="plugins/slick/slick.min.js"></script>-->
+<!--<script src="plugins/jquery-ui/jquery-ui.min.js"></script>-->
+<!--<script src="plugins/tweetie/tweetie.js"></script>-->
+<!--<script src="plugins/forms/jquery.form.min.js"></script>-->
+<!--<script src="plugins/forms/jquery.validate.min.js"></script>-->
+<!--<script src="plugins/modernizr/modernizr.custom.js"></script>-->
+<!--<script src="plugins/wow/wow.min.js"></script>-->
+<!--<script src="plugins/zoom/zoom.js"></script>-->
+<!--<script src="plugins/mixitup/mixitup.min.js"></script>-->
+<!--&lt;!&ndash;-<script src="http://ditu.google.cn/maps/api/js?key=AIzaSyD2MtZynhsvwI2B40juK6SifR_OSyj4aBA&libraries=places"></script>-&ndash;&gt;-->
+<!--<script src="plugins/whats-nearby/source/WhatsNearby.js"></script>-->
+<!--<script src="assets/js/theme.js"></script>-->
 </body>
 </html>
