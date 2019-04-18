@@ -65,6 +65,10 @@ class PostDetail(models.Model):
     price = models.CharField(max_length=70, blank=True)
     description = models.CharField(max_length=200, blank=True)
     name = models.ForeignKey(Post,on_delete=models.CASCADE,default=DEFAULT_LOCATION_ID)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, default=DEFAULT_LOCATION_ID)
+
+
+
 
     # def __str__(self):
     #     return '%s' % self.property_size,\
