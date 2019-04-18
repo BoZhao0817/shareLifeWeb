@@ -76,19 +76,19 @@ def single(request):
 #         )
 
 
-# def PostDetailList(request, pk):
-#     try:
-#         post = PostDetail.objects.get(pk=pk)
-#     except PostDetail.DoesNotExist:
-#         raise Http404("Book does not exist")
-#
-#     # book_id=get_object_or_404(Book, pk=pk)
-#
-#     return render(
-#         request,
-#         'single-property.html',
-#         context={'post_detail': post }
-#     )
+def PostDetail(request, pk):
+    try:
+        post = Post.objects.get(pk=pk)
+    except Post.DoesNotExist:
+        raise Http404("Book does not exist")
+
+    # book_id=get_object_or_404(Book, pk=pk)
+
+    return render(
+        request,
+        'single-property.html',
+        context={'post_detail': post }
+    )
 
 
 

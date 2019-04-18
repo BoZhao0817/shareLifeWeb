@@ -32,7 +32,7 @@ class Post(models.Model):
     created_time = models.DateField(default=datetime.date.today)
     modified_time = models.DateField(default=datetime.date.today)
 
-    excerpt = models.CharField(max_length=200, blank=True)
+    # excerpt = models.CharField(max_length=200, blank=True)
 
     location = models.ForeignKey(Location,on_delete=models.CASCADE,default=DEFAULT_LOCATION_ID)
     tags = models.ManyToManyField(Tag, blank=True)
@@ -45,13 +45,9 @@ class Post(models.Model):
     latitude = models.CharField(max_length=70, blank=True)
     longitude = models.CharField(max_length=70, blank=True)
 
-    #property_size = models.CharField(max_length=70)
     bedrooms = models.Field(max_length=200, blank=True)
     bathrooms = models.CharField(max_length=200, blank=True)
-    #garage_size = models.CharField(max_length=200, blank=True)
-    #year_built = models.CharField(max_length=70, blank=True)
-    #address = models.CharField(max_length=200, blank=True)
-    #price = models.CharField(max_length=70, blank=True)
+
 
     def get_absolute_url(self):
         return reverse('single',
