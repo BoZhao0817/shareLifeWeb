@@ -2,14 +2,18 @@ from django.shortcuts import render,get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
-from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView,DeleteView
+
 from django.views import generic
 from message.models import Message
 from .forms import SubmitPostForm, SearchPostForm
 from message.form import MessageForm
 from .models import Post, User, PostDetail,Location
 from django.views import View
+
+from .models import Post, User
+from .forms import SubmitPostForm
+
 
 
 def index(request):
@@ -58,7 +62,6 @@ class updatePost(UpdateView):
 class deletePost(DeleteView):
     model = Post
     success_url = reverse_lazy('index')
-
 
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)

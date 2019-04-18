@@ -5,6 +5,7 @@ from django.shortcuts import  reverse
 
 import datetime
 
+
 DEFAULT_LOCATION_ID = 1
 DEFAULT_POST_ID =1
 DEFAULT_USER_ID =1
@@ -26,14 +27,15 @@ class Location(models.Model):
 
 
 class Post(models.Model):
+
     name = models.CharField(max_length=70)
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     body = models.TextField(max_length=500)
 
-    created_time = models.DateTimeField()
-    modified_time = models.DateTimeField()
+    created_time = models.DateField(default=datetime.date.today)
+    modified_time = models.DateField(default=datetime.date.today)
 
-    excerpt = models.CharField(max_length=200, blank=True)
+    # excerpt = models.CharField(max_length=200, blank=True)
 
     location = models.ForeignKey(Location,on_delete=models.CASCADE,default=DEFAULT_LOCATION_ID)
     tags = models.ManyToManyField(Tag, blank=True)
@@ -41,11 +43,11 @@ class Post(models.Model):
     startDate = models.DateField(default=datetime.date.today)
 
     endDate = models.DateField(default=datetime.date.today)
-    bedrooms = models.CharField(max_length=200, blank=True)
+    latitude = models.CharField(max_length=70, blank=True)
+    longitude = models.CharField(max_length=70, blank=True)
+    pic_url= models.URLField(max_length=200, blank=True)
+    bedrooms = models.Field(max_length=200, blank=True)
     bathrooms = models.CharField(max_length=200, blank=True)
-    lat  = models. DecimalField(max_digits=9, decimal_places=6, blank = True)
-    lon = models.DecimalField(max_digits=9, decimal_places= 6, blank= True)
-
 
 
 
@@ -57,12 +59,20 @@ class Post(models.Model):
 
 
 
+# <<<<<<< HEAD
+#
+# class PostDetail(models.Model):
+#     property_id = models.AutoField(primary_key= True)
+#     description = models.CharField(max_length=200, blank=True)
+#     name = models.ForeignKey(Post,on_delete=models.CASCADE,default=DEFAULT_LOCATION_ID)
+#     location = models.ForeignKey(Location, on_delete=models.CASCADE, default=DEFAULT_LOCATION_ID)
+# =======
 
 class PostDetail(models.Model):
-    property_id = models.AutoField(primary_key= True)
     description = models.CharField(max_length=200, blank=True)
     name = models.ForeignKey(Post,on_delete=models.CASCADE,default=DEFAULT_LOCATION_ID)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, default=DEFAULT_LOCATION_ID)
+
 
 
 

@@ -1,5 +1,4 @@
 from django import forms
-
 from .models import Post, PostDetail
 
 
@@ -15,11 +14,7 @@ class SubmitPostForm(forms.ModelForm):
         fields = ['name','location', 'body','address','startDate','endDate']
         labels = {'name': 'Name Your House', 'body':'some introduction'}
 
-class PostDetailForm(forms.ModelForm):
-    #inner class meta
-    class Meta:
-        model = Post
-        fields = '__all__'
+
 
 class SearchPostForm(forms.ModelForm):
     class Meta:

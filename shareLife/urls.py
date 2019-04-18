@@ -1,4 +1,3 @@
-
 from django.conf.urls import url,include
 from django.urls import path
 
@@ -14,5 +13,6 @@ urlpatterns = [
     path('post/<int:pk>/update/', views.updatePost.as_view(), name='post_update'),
     path('post/<int:pk>/delete/', views.deletePost.as_view(), name='post_delete'),
     path('index/search',views.search, name='search')
-    #detail page
 ]
+    #detail page
+
