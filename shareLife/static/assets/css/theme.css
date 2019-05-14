@@ -750,7 +750,8 @@ img.zoom-img {
   margin-bottom: 24px;
 }
 .property .feature-image img {
-  width: 100%;
+  width: 100%s;
+
 }
 .property .btn-sale {
   font-size: 10px;

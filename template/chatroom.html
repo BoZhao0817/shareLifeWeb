@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-
+<h5> </h5>
 {% block content %}
 <!--聊天框-->
 <div class="list-group col-md-10 col-md-offset-1 well">
@@ -13,45 +13,30 @@
         {% endfor %}
     </div>
 </div>
-<!--表单-->
-<form id="chatForm" class="form-horizontal panel container" method="POST" action=".">{% csrf_token %}
-    <div class="form-group col-md-10">
-        <textarea type="text" name="content" id="content" value="" class="form-control" id="exampleMessage" placeholder=""></textarea>
+
+{% if user.is_authenticated %}
+
+<div class = 'container'>
+    <div class = 'col-md-10'> <label aria-label="true">Message</label>
     </div>
-    <div class="form-group col-md-4">
-        <input type="hidden" name="post_type" value="send_chat"/>
-        <input type="submit" class="btn btn-lg btn-primary" value="发送"/>
+
+     <div class = 'col-md-10'>
+<form action="{% url 'message:chat_message' post.pk user1 user2 %}" method="post" class="comment-form">
+  {% csrf_token %}
+  <div class="list-group col-md-10 ">
+        <!--<label >Message：</label>-->
+        {{ message_form.content }}
+        {{ message_form.content.errors }}
+        <button type="submit" class="comment-btn">submit</button>
     </div>
+    <!-- row -->
 </form>
-{% endblock %}
+     </div>
+</div>
+{% else %}
+{% endif %}
 
-{% block script %}
-<script>
- $(function() {
-    updateMsg();
-    $("#chatForm").submit(function() {
-        //ajax 提交表单
-        $.post("./post/",
-            $('#chatForm').serialize(),
-            function(data) {
-            $("#content").val("");
-        });
-        return false;
-    });
-});
 
-//更新消息
-function updateMsg() {
-    $.post(
-        "./post/",
-        {
-        post_type: "get_chat",
-        last_chat_id: $(".chat_id").last().val()
-        },
-        function(data) {
-            $('.list-group-item').append(data);    xml
-    });
-    setTimeout("updateMsg()", 1000);        //每秒更新一次
-}
-</script>
+
+
 {% endblock %}

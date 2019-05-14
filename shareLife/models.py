@@ -35,28 +35,39 @@ class Post(models.Model):
     created_time = models.DateField(default=datetime.date.today)
     modified_time = models.DateField(default=datetime.date.today)
 
-    # excerpt = models.CharField(max_length=200, blank=True)
-
+    sqft = models.DecimalField(max_digits=6, decimal_places=2,blank = True, default =100)
     location = models.ForeignKey(Location,on_delete=models.CASCADE,default=DEFAULT_LOCATION_ID)
     tags = models.ManyToManyField(Tag, blank=True)
     address = models.CharField(max_length=200, blank=True)
     startDate = models.DateField(default=datetime.date.today)
-
     endDate = models.DateField(default=datetime.date.today)
     latitude = models.CharField(max_length=70, blank=True)
     longitude = models.CharField(max_length=70, blank=True)
     pic_url= models.URLField(max_length=200, blank=True)
-    bedrooms = models.Field(max_length=200, blank=True)
+    bedrooms = models.CharField(max_length=200, blank=True)
     bathrooms = models.CharField(max_length=200, blank=True)
 
+    excerpt = models.TextField(max_length=500, blank=True)
+    space_text = models.TextField(max_length=500, blank= True)
+    transit_text = models.TextField(max_length=500, blank= True)
+    access_text = models.TextField(max_length=500, blank= True)
+    interaction_text = models.TextField(max_length=500, blank= True)
+    amentity_text = models.TextField(max_length= 500, blank = True)
 
 
     def __str__(self):
-        return self.name
+        return self.name[:-5]
 
     def get_absolute_url(self):
         return reverse('shareLife:post_detail', kwargs={'pk': self.pk})
-
+    def get_amenity(self):
+        ret = []
+        for str in self.amentity_text[1:-1].split(","):
+            if str[0] == '"':
+                str = str[1:-1]
+            if not str.startswith("translation"):
+                ret.append(str)
+        return ret
 
 
 # <<<<<<< HEAD
